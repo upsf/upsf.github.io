@@ -45,7 +45,7 @@
 			var fc = cf[0].charAt(0);
 			if (+fc in [!0, !0]) {
 				function msg(n, v){
-					var m = {}; m[n]=this.value;
+					var m = {}; m[n] = v;
 					if (fc) top.postMessage(JSON.stringify(m), "https://" + cf[0].slice(1));
 					else top.postMessage(JSON.stringify(m), "http://" + cf[0].slice(1));
 				}
