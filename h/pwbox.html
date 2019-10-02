@@ -3,25 +3,25 @@
 <head>
 	<script>
 		// btoa(JSON.stringify(["0localhost", "","color:green","Password"]))
-		var cf, G = (function(s){
+		var cf=["","","",""], G = (function(s){
 			var g, r = {};
 			for (var i = 0; i < s.length; i++)
 				if ((g = s[i].split("=")).length)
 					r[decodeURI(g[0])] = decodeURI(g[1] || "");
 			return r;
 		})(location.search.substr(1).split("&"));
-		if (G.cf) {
+		if (G.cf && G.cf.trim()) {
 			try {
 				cf = JSON.parse(atob(G.cf));
 			} catch (e) {}
 		}
-		if (cf && "string" == typeof cf[1] && cf[1].trim()) {
+		if ("string" == typeof cf[1] && cf[1].trim()) {
 			var c = document.createElement("link");
 			c.rel = "stylesheet";
 			c.href = cf[1];
 			document.head.appendChild(c);
 		}
-		if (cf && "string" == typeof cf[2] && cf[2].trim()) {
+		if ("string" == typeof cf[2] && cf[2].trim()) {
 			var c = document.createElement("style");
 			c.innerHTML = "input{"+cf[2]+"}";
 			document.head.appendChild(c);
@@ -32,26 +32,36 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Password Box</title>
 	<style>
-	body{margin:0;padding:0}
-	input{width:100%;height:100%;overflow:hidden;box-sizing: border-box;}
+	body {margin:0; padding:0; overflow:hidden;}
+	input {width:100%; position: absolute; top:0; left:0; right:0; bottom:0;}
 	</style>
 </head>
 <body>
-	<input type="password">
+	<input type="password" placeholder="Password">
 	<script>
 		var P = document.getElementsByTagName("input")[0];
-		if (cf && "string" == typeof cf[3] && cf[3].trim()) {
-			P.placeholder = cf[3];
-			console.log(1001,"ph set!");
-		}
-		if (cf[0]) P.oninput = function(){
-			var fc = cf[0].charAt(0);
-			if (+fc in [!0, !0]){
-				var m = {}; m[G.n||"__UPWIV__"]=this.value;
+		if (3 in cf) P.placeholder = cf[3];
+		if (cf[0]) {
+			function msg(n, v){
+				var m = {}; m[n]=this.value;
 				if (fc) top.postMessage(JSON.stringify(m), "https://" + cf[0].slice(1));
 				else top.postMessage(JSON.stringify(m), "http://" + cf[0].slice(1));
 			}
-		};
+			P.oninput = function(){
+				var fc = cf[0].charAt(0);
+				if (+fc in [!0, !0]){
+					msg(G.n||"__UPWIV__", this.value);
+				}
+			};
+			var keys = Object.keys(window);
+			for (var i = 0, key; i < keys; i++) {
+				if (/^on/.test(key = keys[i])) {
+					P.addEventListener(key = key.slice(2), function (e) {
+						if (e.type) msg("__UPWIEvent__", e.type); // to be continued, or not? xDD
+					});
+				}
+			}
+		}
 	</script>
 </body>
 </html>
