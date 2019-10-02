@@ -33,14 +33,13 @@
 	<title>Password Box</title>
 	<style>
 	body {margin:0; padding:0; overflow:hidden;}
-	input {width:100%; position: absolute; top:0; left:0; right:0; bottom:0;}
+	input {width:100%; position: absolute; top:0; left:0; right:0; bottom:0; box-sizing: border-box;}
 	</style>
 </head>
 <body>
 	<input type="password" placeholder="Password">
 	<script>
 		var P = document.getElementsByTagName("input")[0];
-		console.log(1003, "CF", cf);
 		if (3 in cf) P.placeholder = cf[3];
 		if (cf[0]) {
 			var fc = cf[0].charAt(0);
@@ -50,15 +49,15 @@
 					if (fc) top.postMessage(JSON.stringify(m), "https://" + cf[0].slice(1));
 					else top.postMessage(JSON.stringify(m), "http://" + cf[0].slice(1));
 				}
-				P.addEventListener("input", function (e) {msg(G.n||"__UPWIV__", this.value);});
-				var keys = Object.keys(window);
-				for (var i = 0, key; i < keys; i++) {
-					if (/^on/.test(key = keys[i])) {
-						P.addEventListener(key = key.slice(2), function (e) {
-							if (e.type) msg("__UPWIEvent__", e.type); // to be continued, or not? xDD
-						});
-					}
+				function getAllEvents(){
+					return Object.keys(window).filter(function(x){return 0===x.indexOf("on")});
 				}
+				P.addEventListener("input", function (e) {msg(G.n||"__UPWIV__", this.value);});
+				getAllEvents().forEach(function(n){
+					P.addEventListener(n.slice(2), function (e) {
+						msg("__UPWIEvent__", e.type); // to be continued, or not? xDD
+					});
+				});
 			}
 		}
 	</script>
