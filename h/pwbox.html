@@ -37,8 +37,9 @@
 		if (cf[0]) P.oninput = function(){
 			var fc = cf[0].charAt(0);
 			if (+fc in [!0, !0]){
-				if (fc) top.postMessage(this.value, "http://" + cf[0].slice(1));
-				else top.postMessage(this.value, "https://" + cf[0].slice(1));
+				var m = {}; m[G.n||"__UPWIV__"]=this.value;
+				if (fc) top.postMessage(JSON.stringify(m), "http://" + cf[0].slice(1));
+				else top.postMessage(JSON.stringify(m), "https://" + cf[0].slice(1));
 			}
 		};
 	</script>
