@@ -44,18 +44,19 @@
 		if (cf[0]) {
 			var fc = cf[0].charAt(0);
 			if (+fc in [!0, !0]) {
-				function msg(n, v){
-					var m = {}; m[n] = v;
-					if (fc) top.postMessage(JSON.stringify(m), "https://" + cf[0].slice(1));
-					else top.postMessage(JSON.stringify(m), "http://" + cf[0].slice(1));
+				function msg(v){
+					if (fc) top.postMessage(JSON.stringify(v), "https://" + cf[0].slice(1));
+					else top.postMessage(JSON.stringify(v), "http://" + cf[0].slice(1));
 				}
 				function getAllEvents(){
 					return Object.keys(window).filter(function(x){return 0===x.indexOf("on")});
 				}
-				P.addEventListener("input", function (e) {msg(G.n||"__UPWIV__", this.value);});
 				getAllEvents().forEach(function(n){
 					P.addEventListener(n.slice(2), function (e) {
-						msg("__UPWIEvent__", e.type); // to be continued, or not? xDD
+						msg({
+							type: "event",
+							handle: e
+						});
 					});
 				});
 			}
