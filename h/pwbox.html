@@ -53,12 +53,10 @@
 				}
 				getAllEvents().forEach(function(n){
 					P.addEventListener(n.slice(2), function (e) {
+						e.etype = ""+e.type;
 						e.value = this.value;
 						e.placeholder = this.placeholder;
-						msg({
-							type: "event",
-							handle: e
-						});
+						msg({ type: "event", handle: e });
 					});
 				});
 			}
