@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+	<script>
+		// btoa(JSON.stringify(["0localhost", "csstest.css"]))
+		var cf, G = (function(s){
+			var g, r = {};
+			for (var i = 0; i < s.length; i++)
+				if ((g = s[i].split("=")).length)
+					r[decodeURI(g[0])] = decodeURI(g[1] || "");
+			return r;
+		})(location.search.substr(1).split("&"));
+		if (G.cf) {
+			try {
+				cf = JSON.parse(atob(G.cf));
+			} catch (e) {}
+		}
+		if (cf && 1 in cf) {
+			var c = document.createElement("link");
+			c.rel = "stylesheet";
+			c.href = cf[1];
+			document.head.appendChild(c);
+		}
+	</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Password Box</title>
+	<style>
+	body{margin:0;padding:0}
+	input{width:100%;height:100%;overflow:hidden;}
+	</style>
+</head>
+<body>
+	<input type="password">
+	<script>
+		var P = document.getElementsByTagName("input")[0];
+		if (cf[0]) P.oninput = function(){
+			var fc = cf[0].charAt(0);
+			if (+fc in [!0, !0]){
+				if (fc) top.postMessage(this.value, "http://" + cf[0].slice(1));
+				else top.postMessage(this.value, "https://" + cf[0].slice(1));
+			}
+		};
+	</script>
+</body>
+</html>
