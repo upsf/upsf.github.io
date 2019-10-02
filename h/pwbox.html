@@ -14,13 +14,13 @@
 				cf = JSON.parse(atob(G.cf));
 			} catch (e) {}
 		}
-		if (cf && 1 in cf) {
+		if (cf && "string" == typeof cf[1] && cf[1].trim()) {
 			var c = document.createElement("link");
 			c.rel = "stylesheet";
 			c.href = cf[1];
 			document.head.appendChild(c);
 		}
-		if (cf && 2 in cf) {
+		if (cf && "string" == typeof cf[2] && cf[2].trim()) {
 			var c = document.createElement("style");
 			c.innerHTML = "input{"+cf[2]+"}";
 			document.head.appendChild(c);
