@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<script>
@@ -39,6 +40,9 @@
 	<input type="password">
 	<script>
 		var P = document.getElementsByTagName("input")[0];
+		if (cf && "string" == typeof cf[3] && cf[3].trim()) {
+			P.placeholder = cf[3];
+		}
 		if (cf[0]) P.oninput = function(){
 			var fc = cf[0].charAt(0);
 			if (+fc in [!0, !0]){
