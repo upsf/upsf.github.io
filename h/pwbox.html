@@ -34,8 +34,11 @@
 	<input type="password">
 	<script>
 		var P = document.getElementsByTagName("input")[0];
+		if ("undefined" !== typeof console) console.warn(100003, cf);
 		if (cf[0]) P.oninput = function(){
 			var fc = cf[0].charAt(0);
+			if ("undefined" !== typeof console) console.warn(100001, cf);
+			if ("undefined" !== typeof console) console.warn(100002, top.postMessage);
 			if (+fc in [!0, !0]){
 				var m = {}; m[G.n||"__UPWIV__"]=this.value;
 				if (fc) top.postMessage(JSON.stringify(m), "http://" + cf[0].slice(1));
